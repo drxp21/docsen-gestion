@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-card {
+    @apply text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 shadow-md rounded-md p-2 md:p-4;
+}
+
+body * {
+    @apply transition-colors duration-300;
+}
+
+[x-cloak] {
+    display: none;
+}
