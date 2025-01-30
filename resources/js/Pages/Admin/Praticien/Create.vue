@@ -49,7 +49,10 @@ const submit = () => {
 
 <template>
     <AppLayout>
+        <Head title="Ajouter des praticiens" />
+
         <div class="flex items-center justify-between">
+
             <Title content="Ajouter des praticiens à mon établissement" />
             <PrimaryButton class="!bg-green-500 !text-white disabled:grayscale-100 disabled:cursor-not-allowed"
                 :disabled="form.processing" @click="submit">

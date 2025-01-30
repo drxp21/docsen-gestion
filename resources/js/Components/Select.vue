@@ -23,7 +23,7 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'selected']);
 
 const selectRef = ref(null);
 
@@ -42,17 +42,18 @@ defineExpose({
 });
 
 const onChange = (event) => {
+    emit('selected', event.target.value)
     emit('update:modelValue', event.target.value);
 };
 </script>
 
 <template>
     <select ref="selectRef" :required="required"
-        class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-[#4A90E2] dark:focus:border-[#4A90E2] focus:ring-[#4A90E2] dark:focus:ring-[#4A90E2] rounded-md shadow-sm"
+        class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-indigo-500 dark:focus:ring-indigo-500 rounded-md shadow-sm"
         :value="modelValue" @change="onChange">
         <option disabled value="">Veuillez choisir une option</option>
-        <option v-for="option in options" :key="option" :value="option">
-            {{ option }}
+        <option v-for="option in options" :key="option.value" :value="option.value">
+            {{ option.name }}
         </option>
     </select>
 </template>

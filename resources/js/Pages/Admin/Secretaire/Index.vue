@@ -6,23 +6,23 @@ import { ref } from 'vue'
 const keyword = ref('')
 
 defineProps({
-    medicaments: Object
+    secretaires: Object
 })
 
+
 const search = () => {
-    router.visit(route('medicament.index') + '?keyword=' + keyword.value, { only: ['medicament'], preserveState: true })
+    // router.visit(route('cars.index') + '?keyword=' + keyword.value, { only: ['cars'], preserveState: true })
 }
 </script>
 <template>
     <AppLayout>
-
-        <Head title="Médicaments" />
+        <Head title="Secrétaires" />
 
         <div class="flex items-center justify-between">
-            <Title content="Liste des médicaments" />
-            <Link class="ml-auto" :href="route('medicament.create')">
+            <Title content="Liste des secrétaires" />
+            <Link class="ml-auto" :href="route('secretaire.create')">
             <PrimaryButton class="!bg-green-500 !text-white ">
-                ajouter un médicament
+                ajouter un secrétaire
                 <Plus :size="18" />
             </PrimaryButton>
             </Link>
@@ -30,13 +30,13 @@ const search = () => {
         <!-- search
         <div>
             <form class="flex gap-2" @submit.prevent="search">
-                <Link :href="route('medicament.index')" v-if="keyword != ''">
+                <Link :href="route('secretaire.index')" v-if="keyword != ''">
                 <button type="button" class="p-2 bg-red-500 rounded-lg" title="Supprimer le filtre">
                     <Close />
                 </button>
                 </Link>
                 <input type="text" class="px-3 py-2 rounded-lg text-slate-600 font-medium text-sm"
-                    placeholder="Chercher un medicament..." required v-model="keyword" />
+                    placeholder="Chercher un secretaire..." required v-model="keyword" />
                 <button type="submit" class="p-2 bg-teal-500 rounded-lg text-white">
                     <MagnifierIcon />
                 </button>
@@ -44,7 +44,7 @@ const search = () => {
         </div> -->
 
         <div class="mt-2">
-            <Table :data="medicaments" route_prefix="medicament" :can_update="true" :can_delete="true" />
+            <Table :data="secretaires" route_prefix="secretaire" :can_show="true" />
         </div>
     </AppLayout>
 </template>

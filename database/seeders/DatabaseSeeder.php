@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Hopital;
 use App\Models\Medicament;
 use App\Models\Praticien;
+use App\Models\Secretaire;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -36,8 +37,20 @@ class DatabaseSeeder extends Seeder
             'phone' => ' 78 163 78 39'
         ]);
 
-        Hopital::create([
+        $h = Hopital::create([
             'user_id' => $hopital->id
         ]);
+
+        for ($i = 0; $i < 3; $i++) {
+            $u = User::factory()->create([
+                'name' => fake()->name,
+                'email' => fake()->email,
+                'role' => 'secretaire',
+            ]);
+            Secretaire::create([
+                'hopital_id' => $h->id,
+                'user_id' => $u->id
+            ]);
+        }
     }
 }

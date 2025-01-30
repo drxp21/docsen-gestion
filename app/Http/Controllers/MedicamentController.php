@@ -95,5 +95,6 @@ class MedicamentController extends Controller
     {
         Medicament::find($id)->delete();
         session()->flash('flash.banner', 'Médicament supprimé avec succès.');
+        return redirect()->route('medicament.index');
     }
 }

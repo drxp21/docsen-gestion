@@ -9,18 +9,15 @@ defineProps({
     hopitals: Object
 })
 
-const handleDelete = (id) => {
-    alert(`do sum with ${id}`)
-}
-const handleUpdate = (id) => {
-    alert(`do sum with ${id}`)
-}
+
 const search = () => {
     // router.visit(route('cars.index') + '?keyword=' + keyword.value, { only: ['cars'], preserveState: true })
 }
 </script>
 <template>
     <AppLayout>
+        <Head title="Hôpitaux" />
+
         <div class="flex items-center justify-between">
             <Title content="Liste des hôpitaux" />
             <Link class="ml-auto" :href="route('hopital.create')">
@@ -47,7 +44,7 @@ const search = () => {
         </div> -->
 
         <div class="mt-2">
-            <Table :data="hopitals" @delete="handleDelete" @update="handleUpdate" />
+            <Table :data="hopitals" />
         </div>
     </AppLayout>
 </template>

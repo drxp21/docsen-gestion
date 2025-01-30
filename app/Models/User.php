@@ -13,7 +13,6 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens;
-
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
     use HasProfilePhoto;
@@ -76,6 +75,11 @@ class User extends Authenticatable
     public function hopital()
     {
         return $this->hasOne(Hopital::class);
+    }
+
+    public function secretaire()
+    {
+        return $this->hasOne(Secretaire::class);
     }
 
     public function admin()

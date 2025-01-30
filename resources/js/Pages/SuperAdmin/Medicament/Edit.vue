@@ -2,27 +2,29 @@
 import { useForm } from '@inertiajs/vue3';
 
 const formes = [
-    'comprimé',
-    'capsule',
-    'sirop',
-    'pommade',
-    'gel',
-    'injection',
-    'suppositoire',
-    'goutte',
-    'poudre',
-    'crème',
+    { name: 'comprimé', value: 'comprime' },
+    { name: 'capsule', value: 'capsule' },
+    { name: 'sirop', value: 'sirop' },
+    { name: 'pommade', value: 'pommade' },
+    { name: 'gel', value: 'gel' },
+    { name: 'injection', value: 'injection' },
+    { name: 'suppositoire', value: 'suppositoire' },
+    { name: 'goutte', value: 'goutte' },
+    { name: 'poudre', value: 'poudre' },
+    { name: 'crème', value: 'creme' }
 ];
+
 const unitesDosage = [
-    'mg',
-    'g',
-    'mcg',
-    'ml',
-    'l',
-    'UI',
-    'mg/ml',
-    'g/l'
+    { name: 'mg', value: 'mg' },
+    { name: 'g', value: 'g' },
+    { name: 'mcg', value: 'mcg' },
+    { name: 'ml', value: 'ml' },
+    { name: 'l', value: 'l' },
+    { name: 'UI', value: 'ui' },
+    { name: 'mg/ml', value: 'mg_ml' },
+    { name: 'g/l', value: 'g_l' }
 ];
+
 
 // Populate form with existing medicament data passed via props
 const props = defineProps({
@@ -45,6 +47,8 @@ const submit = () => {
 
 <template>
     <AppLayout>
+
+        <Head title="Modifier un médicament" />
         <Title content="Modifier un médicament" />
         <form @submit.prevent="submit" class="custom-card grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
             <!-- Nom -->

@@ -15,7 +15,8 @@ defineProps({
 const handleDelete = (id) => {
     alert(`do sum with ${id}`)
 }
-const handleUpdate = (id) => {
+const 
+handleUpdate = (id) => {
     alert(`do sum with ${id}`)
 }
 const search = () => {
@@ -24,6 +25,8 @@ const search = () => {
 </script>
 <template>
     <AppLayout>
+        <Head title="Praticiens" />
+
         <div class="flex items-center justify-between">
             <Title content="Liste des praticiens" />
             <Link class="ml-auto" :href="route('praticiens.create')">

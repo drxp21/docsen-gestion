@@ -21,6 +21,9 @@ const search = () => {
 </script>
 <template>
     <AppLayout>
+
+        <Head title="Praticiens" />
+
         <div class="flex items-center justify-between">
             <Title content="Praticiens dans mon établissement" />
             <Link class="ml-auto" :href="route('praticiens.create')">
@@ -47,7 +50,8 @@ const search = () => {
         </div> -->
 
         <div class="mt-2">
-            <Table :data="praticiens" :can_delete="true" @delete="handleDelete" @update="handleUpdate" />
+            <Table :data="praticiens" route_prefix="praticiens" :can_search="true" :can_delete="true" @delete="handleDelete"
+                @update="handleUpdate" />
         </div>
     </AppLayout>
 </template>

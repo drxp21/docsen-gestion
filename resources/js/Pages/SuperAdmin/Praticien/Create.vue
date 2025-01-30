@@ -2,16 +2,16 @@
 import { useForm } from '@inertiajs/vue3';
 import LocationPicker from '@/Components/LocationPicker.vue'
 const specialites = [
-    'Cardiologie',
-    'Dermatologie',
-    'Pédiatrie',
-    'Neurologie',
-    'Ophtalmologie',
-    'Orthopédie',
-    'Psychiatrie',
-    'Radiologie',
-    'Gynécologie',
-    'Anesthésiologie'
+    { name: 'Cardiologie', value: 'cardiologie' },
+    { name: 'Dermatologie', value: 'dermatologie' },
+    { name: 'Pédiatrie', value: 'pediatrie' },
+    { name: 'Neurologie', value: 'neurologie' },
+    { name: 'Ophtalmologie', value: 'ophtalmologie' },
+    { name: 'Orthopédie', value: 'orthopedie' },
+    { name: 'Psychiatrie', value: 'psychiatrie' },
+    { name: 'Radiologie', value: 'radiologie' },
+    { name: 'Gynécologie', value: 'gynecologie' },
+    { name: 'Anesthésiologie', value: 'anesthesiologie' }
 ]
 
 const form = useForm({
@@ -29,6 +29,7 @@ const submit = () => {
 </script>
 <template>
     <AppLayout>
+        <Head title="Inscrire un nouveau praticien" />
         <Title content="Inscrire un nouveau praticien" />
         <form @submit.prevent="submit" class="custom-card grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
             <div>

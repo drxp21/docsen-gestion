@@ -8,6 +8,9 @@ defineProps({
 
 <template>
     <AppLayout>
+
+        <Head title="Détails praticien" />
+
         <div class="max-w-4xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
             <!-- Header with Profile Picture and Name -->
             <div class="flex items-center space-x-6">

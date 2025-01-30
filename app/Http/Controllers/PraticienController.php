@@ -23,7 +23,7 @@ class PraticienController extends Controller
     public function index()
     {
 
-        $data_to_hide = ['description', 'profile_photo_path', 'user_id', 'user', 'created_at', 'updated_at'];
+        $data_to_hide = ['description', 'profile_photo_path', 'user_id', 'user', 'deleted_at', 'created_at', 'updated_at', 'pivot'];
 
         switch (auth()->user()->role) {
             case 'superadmin':

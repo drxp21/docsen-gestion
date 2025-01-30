@@ -1,24 +1,37 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
-import LocationPicker from '@/Components/LocationPicker.vue'
+import Badge from '@/Components/Badge.vue';
+import { ref } from 'vue';
 
+const props = defineProps({
+    services: Object
+});
+
+const options = ref(props.services.map(s => ({ name: s.nom, value: s.id })));
 
 const form = useForm({
     name: '',
     email: '',
     phone: '',
-    longitude: '',
-    latitude: '',
-})
+    services: [],
+});
+
+const handleSelect = (e) => {
+    form.services.push(options.value.find(s => parseInt(s.value) === parseInt(e)));
+    options.value.splice(options.value.findIndex(s => parseInt(s.value) === parseInt(e)), 1);
+};
+
+
+
 const submit = () => {
-    form.post(route('hopital.store'))
-}
+    form.post(route('secretaire.store'));
+};
 </script>
+
 <template>
     <AppLayout>
-
-        <Head title="Inscrire un hôpital" />
-        <Title content="Inscrire un nouveau hôpital" />
+        <Head title="Ajouter un nouveau secrétaire" />
+        <Title content="Ajouter un nouveau secrétaire" />
         <form @submit.prevent="submit" class="custom-card grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
             <div>
                 <InputLabel for="name" value="Nom" required />
@@ -38,22 +51,31 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.phone" />
             </div>
             <div>
+                <InputLabel for="Services" value="Services" />
+                <Select class="mt-1" :options="options" @selected="handleSelect" />
+                <InputError class="mt-2" :message="form.errors.services" />
+                <div class="flex flex-wrap gap-2 items-center my-2">
+                    <span v-for="(b, index) in form.services" :key="b.value"
+                        class="bg-indigo-300 !text-indigo-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-indigo-100 dark:text-indigo-300">
+                        {{ b.name }}
+                        <button @click="form.services.splice(index, 1)">
+                            &times;
+                        </button>
+                    </span>
+                </div>
+
+            </div>
+            <div>
                 <InputLabel value="Mot de passe" />
                 <div class="flex items-center h-10">
                     <Title content="Un mot de passe sera généré automatiquement" class="italic" size="xs" />
                 </div>
             </div>
-            <div class="col-span-1 md:col-span-2">
-                <InputLabel value="Localisation" />
-                <LocationPicker @location-selected="(lat, long) => (form.latitude = lat, form.longitude = long)" />
-                <InputError :message="form.errors.latitude" class="mt-2" />
-                <InputError :message="form.errors.longitude" class="mt-2" />
 
-            </div>
             <div class="col-span-1 md:col-span-2">
                 <PrimaryButton class="!bg-green-500 !text-white disabled:grayscale-100 disabled:cursor-not-allowed"
                     :disabled="form.processing">
-                    inscrire
+                    Ajouter
                     <Plus :size="18" />
                 </PrimaryButton>
             </div>

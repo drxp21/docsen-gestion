@@ -39,9 +39,10 @@ const tableKeys = computed(() => {
 })
 
 const attribute_names_map = {
-    'profile_photo_url': 'Photo de Profil',
+    'secretaire': 'secrétaire',
+    'profile photo url': 'Photo de Profil',
     'name': 'Nom',
-    'unite': 'unitép',
+    'unite': 'unité',
     'specialite': 'Spécialité',
     'email': 'Email',
     'id': 'ID'
@@ -71,7 +72,7 @@ const getHeader = (t) => {
                         class="text-start capitalize px-6 py-3">
                         {{ getHeader(key) }}
                     </th>
-                    <th v-if="(can_update || can_delete || can_show) && route_prefix" class="text-start px-6 py-3">
+                    <th v-if="(can_update || can_delete || can_show) && route_prefix" class="text-end px-6 py-3">
                         Actions</th>
                 </tr>
             </thead>
@@ -92,7 +93,7 @@ const getHeader = (t) => {
                         </template>
                     </td>
                     <td v-if="(can_update || can_delete || can_show) && route_prefix"
-                        class="flex justify-center space-x-2 px-6 py-3">
+                        class="flex justify-end  space-x-2 px-6 py-3">
                         <Link v-if="can_show" :href="route(`${route_prefix}.show`, row['id'])">
                         <PrimaryButton class="!bg-indigo-400 !text-white flex items-center gap-3">
                             Détails
