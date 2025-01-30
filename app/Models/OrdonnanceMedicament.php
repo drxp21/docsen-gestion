@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrdonnanceMedicament extends Model
+class OrdonnanceMedicament extends BaseUuidModel
 {
     use HasFactory;
 

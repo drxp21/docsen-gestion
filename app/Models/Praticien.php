@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Praticien extends Model
+class Praticien extends BaseUuidModel
 {
     use HasFactory;
     use SoftDeletes;

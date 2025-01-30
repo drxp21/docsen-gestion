@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('disponibilites', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignId('praticien_id')->constrained('users')->onDelete('cascade');
             $table->string('jour'); // Exemple : 'lundi', 'mardi', etc.
             $table->time('heure_debut');

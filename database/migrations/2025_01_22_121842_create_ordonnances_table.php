@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('ordonnances', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignId('patient_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('praticien_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();

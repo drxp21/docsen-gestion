@@ -10,9 +10,9 @@ trait HasUuid
     protected static function bootHasUuid()
     {
         static::creating(function ($model) {
-            if (empty($model->uuid)) {
-                $uuid = Uuid::uuid4();
-                $model->uuid = static::encodeBase64Uuid($uuid);
+            if (empty($model->id)) {
+                $id = Uuid::uuid4();
+                $model->id = static::encodeBase64Uuid($id);
             }
         });
     }

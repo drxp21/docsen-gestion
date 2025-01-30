@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\HasUuid;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Secretaire extends Model
+class Secretaire extends BaseUuidModel
 {
-    use HasUuid;
 
     protected $fillable = ['user_id', 'hopital_id'];
 

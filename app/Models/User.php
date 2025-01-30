@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,6 +13,8 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+
+    use HasUuid;
     use HasApiTokens;
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
@@ -19,6 +22,9 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+
+    protected $keyType = 'string';
+    public $incrementing = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -82,12 +88,5 @@ class User extends Authenticatable
         return $this->hasOne(Secretaire::class);
     }
 
-    public function admin()
-    {
-        return $this->hasOne(Admin::class);
-    }
-    public function super_admin()
-    {
-        return $this->hasOne(SuperAdmin::class);
-    }
+
 }

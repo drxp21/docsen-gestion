@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('medicaments', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('nom');
             $table->string('description')->nullable();
             $table->string('forme')->nullable();

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RendezVous extends Model
+class RendezVous extends BaseUuidModel
 {
     use HasFactory;
 
@@ -29,7 +29,7 @@ class RendezVous extends Model
         return $this->belongsTo(User::class, 'patient_id', 'id');
     }
 
-   
+
     public function service()
     {
         return $this->belongsTo(Service::class);

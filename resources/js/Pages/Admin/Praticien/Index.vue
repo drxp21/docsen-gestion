@@ -50,7 +50,7 @@ const search = () => {
         </div> -->
 
         <div class="mt-2">
-            <Table :data="praticiens" route_prefix="praticiens" :can_search="true" :can_delete="true" @delete="handleDelete"
+            <Table :data="praticiens" route_prefix="praticiens" :can_show="true" :can_delete="true" @delete="handleDelete"
                 @update="handleUpdate" />
         </div>
     </AppLayout>

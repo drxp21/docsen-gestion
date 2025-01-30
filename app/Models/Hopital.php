@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Hopital extends Model
+class Hopital extends BaseUuidModel
 {
-    
+
 
     protected $fillable = [
         'user_id',
