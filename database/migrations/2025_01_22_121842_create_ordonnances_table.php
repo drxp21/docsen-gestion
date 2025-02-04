@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('ordonnances', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('patient_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('praticien_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('patient_id')->constrained()->onDelete('cascade');
+            $table->foreignId('praticien_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -47,8 +47,12 @@ const navLinks = [
         href: 'service.index',
         name: 'Services',
         should_show: page.props.auth.user?.role == 'admin'
+    },
+    {
+        href: 'praticien.disponibilite',
+        name: 'Disponibité',
+        should_show: page.props.auth.user?.role == 'praticien'
     }
-
 
 
 ];

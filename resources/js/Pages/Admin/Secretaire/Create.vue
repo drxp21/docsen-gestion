@@ -17,8 +17,8 @@ const form = useForm({
 });
 
 const handleSelect = (e) => {
-    form.services.push(options.value.find(s => parseInt(s.value) === parseInt(e)));
-    options.value.splice(options.value.findIndex(s => parseInt(s.value) === parseInt(e)), 1);
+    form.services.push(options.value.find(s => s.value === e));
+    options.value.splice(options.value.findIndex(s => s.value === e), 1);
 };
 
 
@@ -30,6 +30,7 @@ const submit = () => {
 
 <template>
     <AppLayout>
+
         <Head title="Ajouter un nouveau secrétaire" />
         <Title content="Ajouter un nouveau secrétaire" />
         <form @submit.prevent="submit" class="custom-card grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">

@@ -12,10 +12,9 @@ return new class extends Migration {
     {
         Schema::create('rendez_vous', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('praticien_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('patient_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('praticien_id')->constrained()->onDelete('cascade');
+            $table->foreignId('patient_id')->constrained()->onDelete('cascade');
             $table->foreignId('service_id')->constrained()->onDelete('cascade');
-            $table->foreignId('disponibilite_id')->constrained()->onDelete('cascade');
             $table->date('date');
             $table->enum('statut', ['en attente', 'accepté', 'refusé'])->default('en attente');
             $table->timestamps();
@@ -28,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('rendez_vouses');
+        Schema::dropIfExists('rendez_vous');
     }
 };

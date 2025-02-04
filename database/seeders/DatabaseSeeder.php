@@ -25,6 +25,19 @@ class DatabaseSeeder extends Seeder
             'role' => 'superadmin',
         ]);
 
+        $p = User::factory()->create([
+            'name' => 'Praticien Diene',
+            'email' => 'praticien@docsen.online',
+            'role' => 'praticien',
+        ]);
+
+        Praticien::create([
+            'user_id' => $p->id,
+            'specialite' => 'Gynécologie',
+            'description' => fake()->text(),
+        ]);
+
+
         Medicament::factory(10)->create();
 
 

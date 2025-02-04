@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InscriptionPraticien;
+use App\Models\Creneau;
 use App\Models\HopitalPraticien;
 use App\Models\Praticien;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -220,4 +222,51 @@ class PraticienController extends Controller
         ]);
     }
 
+    public function creneaus()
+    {
+        $data_to_hide = ['user_id', 'profile_photo_path', 'user_id', 'user', 'id', 'email', 'created_at', 'updated_at', 'pivot'];
+
+        $hopitals = auth()->user()->praticien->hopitals->map(function ($s) {
+            return [
+                'name' => $s->name,
+                'value' => $s->id,
+            ];
+        });
+        $hopitals[1] = ['name' => 'Dave Sanchez', 'value' => 'Sainte'];
+
+        $creneaus = auth()->user()->praticien->creneaus;
+
+        return Inertia::render('Praticien/Disponibilite', compact(['hopitals', 'creneaus']));
+    }
+
+    public function disponibilite_save(Request $request)
+    {
+        dd($request->all());
+        $request->validate([
+            'creneaus' => 'required|array',
+            'disponibilite_id' => 'required|exists:disponibilites,id',
+        ]);
+
+        DB::transaction(function () use ($request) {
+            foreach ($request->creneaus as $creneauData) {
+                $creneau = [
+                    'jour' => $creneauData['jour'],
+                    'heure_debut' => $creneauData['heure_debut'],
+                    'heure_fin' => $creneauData['heure_fin'],
+                    'reserve' => $creneauData['reserve'] == 0 ? false : true,
+                    'disponibilite_id' => $request->disponibilite_id,
+                    'hopital_id' => $creneauData['hopital_id'],
+                ];
+
+                if (isset($creneauData['id'])) {
+                    Creneau::where('id', $creneauData['Pid'])->update($creneau);
+                } else {
+                    Creneau::create($creneau);
+                }
+            }
+        });
+
+        session()->flash('flash.banner', 'Disponibilités enregistrées avec succès.');
+
+    }
 }

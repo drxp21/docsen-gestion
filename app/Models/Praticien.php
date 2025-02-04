@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -20,7 +21,21 @@ class Praticien extends BaseUuidModel
         'longitude',
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($model) {
+            $jours = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 
+            foreach ($jours as $jour) {
+                Creneau::create([
+                    'jour' => $jour,
+                    'heure_debut' => '08:00',
+                    'heure_fin' => '12:00',
+                    'praticien_id' => $model->id,
+                ]);
+            }
+        });
+    }
 
 
     public function getNameAttribute()
@@ -58,5 +73,15 @@ class Praticien extends BaseUuidModel
     public function hopitals(): BelongsToMany
     {
         return $this->belongsToMany(Hopital::class);
+    }
+
+    /**
+     * Get all of the creneaus for the Praticien
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function creneaus()
+    {
+        return $this->hasMany(Creneau::class);
     }
 }

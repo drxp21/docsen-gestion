@@ -14,7 +14,6 @@ class RendezVous extends BaseUuidModel
         'patient_id',
         'hopital_id',
         'service_id',
-        'disponibilite_id',
         'date',
         'statut',
     ];
@@ -35,8 +34,4 @@ class RendezVous extends BaseUuidModel
         return $this->belongsTo(Service::class);
     }
 
-    public function disponibilite()
-    {
-        return $this->belongsTo(Disponibilite::class);
-    }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\PraticienController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SecretaireController;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsPraticien;
 use App\Http\Middleware\IsSuperAdmin;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,11 @@ Route::middleware(['auth:sanctum'])->prefix('/admin')->group(function () {
     Route::resource('medicament', MedicamentController::class)->middleware([IsSuperAdmin::class]);
     Route::resource('service', ServiceController::class)->middleware([IsAdmin::class]);
     Route::resource('secretaire', SecretaireController::class)->middleware([IsAdmin::class]);
+
     Route::get('/praticien/create/search', [PraticienController::class, 'search'])->name('praticiens.search');
-    Route::post('/secretaire/assigner', [SecretaireController::class, 'assigner'])->name('assigner.secretaire');
+    Route::post('/secretaire/assigner', [SecretaireController::class, 'assigner'])->middleware([IsAdmin::class])->name('assigner.secretaire');
+
+    Route::get('/praticien/disponiblite', [PraticienController::class, 'creneaus'])->middleware([IsPraticien::class])->name('praticien.disponibilite');
+    Route::post('/praticien/disponiblite/save', [PraticienController::class, 'disponibilite_save'])->middleware([IsPraticien::class])->name('praticien.disponibilite.save');
+    // Route::post('/praticien/disponiblite/change-interval', [DisponibiliteController::class, 'change_interval'])->middleware([IsPraticien::class])->name('praticien.disponibilite.change.interval');
 });
