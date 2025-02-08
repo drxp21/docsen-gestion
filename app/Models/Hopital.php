@@ -86,4 +86,14 @@ class Hopital extends BaseUuidModel
     {
         return $this->hasMany(Secretaire::class);
     }
+
+    /**
+     * Get all of the rendez_vous for the Hopital
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function rendez_vous()
+    {
+        return $this->hasManyThrough(RendezVous::class, Service::class);
+    }
 }

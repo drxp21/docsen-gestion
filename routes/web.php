@@ -2,12 +2,16 @@
 
 use App\Http\Controllers\HopitalController;
 use App\Http\Controllers\MedicamentController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PraticienController;
+use App\Http\Controllers\RendezVousController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SecretaireController;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsPatient;
 use App\Http\Middleware\IsPraticien;
 use App\Http\Middleware\IsSuperAdmin;
+use App\Models\RendezVous;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,8 +41,11 @@ Route::middleware(['auth:sanctum'])->prefix('/admin')->group(function () {
     Route::resource('medicament', MedicamentController::class)->middleware([IsSuperAdmin::class]);
     Route::resource('service', ServiceController::class)->middleware([IsAdmin::class]);
     Route::resource('secretaire', SecretaireController::class)->middleware([IsAdmin::class]);
+    Route::resource('rendez-vous', RendezVousController::class);
+
 
     Route::get('/praticien/create/search', [PraticienController::class, 'search'])->name('praticiens.search');
+    Route::get('/rendez-vous/create/search', [HopitalController::class, 'search'])->name('hopitals.search');
     Route::post('/secretaire/assigner', [SecretaireController::class, 'assigner'])->middleware([IsAdmin::class])->name('assigner.secretaire');
 
     Route::get('/praticien/disponiblite', [PraticienController::class, 'creneaus'])->middleware([IsPraticien::class])->name('praticien.disponibilite');

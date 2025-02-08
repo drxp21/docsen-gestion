@@ -52,11 +52,15 @@ const navLinks = [
         href: 'praticien.disponibilite',
         name: 'Disponibité',
         should_show: page.props.auth.user?.role == 'praticien'
-    }
+    },
+    {
+        href: 'rendez-vous.index',
+        name: 'Rendez-vous',
+        should_show: ['patient', 'secretaire'].includes(page.props.auth.user?.role)
+    },
 
 
 ];
-
 const showingNavigationDropdown = ref(false);
 
 const switchToTeam = (team) => {

@@ -103,4 +103,22 @@ class HopitalController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('q');
+
+        $hopitals = Hopital::with('user', 'services')
+            ->get()
+            ->append(['name', 'email', 'profile_photo_url'])
+            ->filter(function ($hopital) use ($search) {
+                return str_contains(strtolower($hopital->user->name ?? ''), strtolower($search));
+            })
+            ->makeHidden(['user', 'user_id', 'created_at', 'updated_at'])
+            ->values();
+        return Inertia::render('Patient/RendezVous/Create', [
+            'hopitals' => $hopitals,
+            'search' => $search,
+        ]);
+    }
 }

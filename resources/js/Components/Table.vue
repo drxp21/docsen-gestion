@@ -20,23 +20,32 @@ const props = defineProps({
     },
     can_show: {
         default: false
+    },
+    custom_action: {
+        default: false
+    },
+    custom_action_name: {
+        required: false
     }
 })
 
 const showDelete = ref(false)
 
-const emit = defineEmits(['delete', 'update'])
+const emit = defineEmits(['delete', 'update', 'customActionClicked'])
 
 const id_to_delete = ref(null)
 
 
 const tableKeys = computed(() => {
-    if (!props.data.data.length) {
-        return [];
-    }
-    const keys = Object.keys(props.data.data[0]);
-    return keys;
-})
+    const firstRow = props.data?.data?.[0];
+
+    return firstRow && typeof firstRow === 'object'
+        ? Object.keys(firstRow).filter(key => firstRow[key] == null || typeof firstRow[key] !== 'object')
+        : [];
+});
+
+
+
 
 const attribute_names_map = {
     'secretaire': 'secrétaire',
@@ -88,10 +97,34 @@ const getHeader = (t) => {
                         <template v-if="key === 'profile_photo_url'">
                             <img :src="row[key]" alt="Profile" class="w-10 h-10 rounded-full mx-auto" />
                         </template>
+                        <template v-else-if="key === 'statut'">
+                            <span class="inline-block text-xs font-semibold px-3 py-1 rounded-full capitalize" :class="{
+                                'bg-green-100 text-green-700': row[key] === 'accepté',
+                                'bg-yellow-100 text-yellow-500': row[key] === 'en attente',
+                                'bg-red-100 text-red-700': row[key] === 'refusé',
+                            }">
+                                {{ row[key] }}
+                            </span>
+                        </template>
+                        <template v-else-if="key === 'date'">
+                            {{
+                                new Date(row[key].split('T')[0]).toLocaleDateString("fr-FR", {
+                                    day: 'numeric',
+                                    month: 'long', year: 'numeric'
+                                }) }}
+                        </template>
                         <template v-else>
                             {{ row[key] }}
                         </template>
                     </td>
+                    <!-- custom action -->
+                    <td v-if="custom_action">
+                        <PrimaryButton @click="$emit('customActionClicked', row)"
+                            class="!bg-teal-400 !text-white flex items-center gap-3 mt-auto">
+                            {{ custom_action_name }}
+                        </PrimaryButton>
+                    </td>
+
                     <td v-if="(can_update || can_delete || can_show) && route_prefix"
                         class="flex justify-end  space-x-2 px-6 py-3">
                         <Link v-if="can_show" :href="route(`${route_prefix}.show`, row['id'])">
@@ -126,6 +159,7 @@ const getHeader = (t) => {
         class="custom-card rounded-b-lg text-sm font-medium py-3 px-10 flex justify-end items-center">
         <Pagination :links="data.links" />
     </div>
+
     <DialogModal :show="showDelete" @close="showDelete = false">
         <template #content>
             <div class="flex flex-col items-center justify-center text-red-500 gap-4">

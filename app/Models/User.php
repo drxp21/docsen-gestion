@@ -88,5 +88,10 @@ class User extends Authenticatable
         return $this->hasOne(Secretaire::class);
     }
 
+    public function patient()
+    {
+        return $this->hasOne(Patient::class);
+    }
+
 
 }

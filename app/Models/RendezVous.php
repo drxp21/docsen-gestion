@@ -12,20 +12,41 @@ class RendezVous extends BaseUuidModel
     protected $fillable = [
         'praticien_id',
         'patient_id',
-        'hopital_id',
         'service_id',
         'date',
         'statut',
     ];
 
+    protected $appends = ['nom_hopital', 'nom_service', 'nom_patient', 'nom_praticien'];
+
+    public function getNomHopitalAttribute()
+    {
+        return $this->service->hopital->user->name;
+    }
+
+    public function getNomServiceAttribute()
+    {
+        return $this->service->nom;
+    }
+
+    public function getNomPraticienAttribute()
+    {
+        return $this->praticien->user->name ?? '~';
+    }
+
+    public function getNomPatientAttribute()
+    {
+        return $this->patient->user->name;
+    }
+
     public function praticien()
     {
-        return $this->belongsTo(User::class, 'praticien_id', 'id');
+        return $this->belongsTo(Praticien::class);
     }
 
     public function patient()
     {
-        return $this->belongsTo(User::class, 'patient_id', 'id');
+        return $this->belongsTo(Patient::class);
     }
 
 

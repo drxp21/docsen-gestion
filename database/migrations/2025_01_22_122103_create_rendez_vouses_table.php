@@ -10,13 +10,13 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('rendez_vous', function (Blueprint $table) {
+        Schema::create('rendez_vouses', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('praticien_id')->constrained()->onDelete('cascade');
+            $table->foreignId('praticien_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('patient_id')->constrained()->onDelete('cascade');
             $table->foreignId('service_id')->constrained()->onDelete('cascade');
             $table->date('date');
-            $table->enum('statut', ['en attente', 'accepté', 'refusé'])->default('en attente');
+            $table->enum('statut', ['en attente', 'accepté', 'refusé', 'terminé'])->default('en attente');
             $table->timestamps();
         });
     }

@@ -49,6 +49,7 @@ const submit = () => {
 
 <template>
     <AppLayout>
+
         <Head title="Ajouter des praticiens" />
 
         <div class="flex items-center justify-between">
